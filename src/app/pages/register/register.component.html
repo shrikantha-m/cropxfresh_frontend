@@ -1,0 +1,50 @@
+<app-navbar></app-navbar>
+
+<div class="flex flex-col items-center justify-center min-h-screen p-6 bg-gray-100">
+  <!-- Main Card Container -->
+  <div class="w-full max-w-lg bg-white shadow-lg rounded-lg p-6 space-y-6">
+
+    <!-- Title -->
+    <h2 class="text-2xl font-bold text-center text-gray-800">Register As</h2>
+
+    <div class="flex flex-col md:flex-row justify-center items-center space-y-4 md:space-x-6">
+
+      <!-- Farmer Registration Card -->
+      <div class="max-w-sm w-full md:w-80 bg-white shadow-lg rounded-lg p-6 space-y-4 relative overflow-hidden border border-green-300">
+        <div class="w-28 h-28 bg-green-500 rounded-full absolute -right-6 -top-6 flex items-center justify-center">
+          <p class="text-white text-3xl font-bold">🌾</p>
+        </div>
+        <h1 class="text-xl font-bold text-gray-800">Register as Farmer</h1>
+        <p class="text-gray-600 text-sm">
+          Manage your farm, track inventory, and connect with buyers easily.
+        </p>
+        <button (click)="navigateToFarmerRegister()" class="w-full py-2 bg-green-500 text-white font-semibold rounded-lg hover:bg-green-600">
+          Register as Farmer
+        </button>
+      </div>
+
+      <!-- Business Registration Card -->
+      <div class="max-w-sm w-full md:w-80 bg-white shadow-lg rounded-lg p-6 space-y-4 relative overflow-hidden border border-blue-300">
+        <div class="w-28 h-28 bg-blue-500 rounded-full absolute -right-6 -top-6 flex items-center justify-center">
+          <p class="text-white text-3xl font-bold">🏡</p>
+        </div>
+        <h1 class="text-xl font-bold text-gray-800">Register as Business</h1>
+        <p class="text-gray-600 text-sm">
+          Connect with farmers, track orders, and expand your business network.
+        </p>
+        <button (click)="navigateToBusinessRegister()" class="w-full py-2 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-600">
+          Register as Business
+        </button>
+      </div>
+
+    </div>
+
+    <!-- Already Registered? Login Button -->
+    <button (click)="navigateToLogin()" class="w-full py-2 mt-4 bg-gray-700 text-white font-semibold rounded-lg hover:bg-gray-800 transition">
+      Already Registered? Login
+    </button>
+
+  </div>
+</div>
+
+<app-footer></app-footer>

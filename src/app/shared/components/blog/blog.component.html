@@ -1,0 +1,148 @@
+<!-- blog.component.html -->
+<section id="relume" class="px-[5%] py-16 md:py-24 lg:py-28">
+  <div class="container">
+    <div class="mb-12 md:mb-18 lg:mb-20">
+      <div class="mx-auto w-full max-w-lg text-center">
+        <p class="mb-3 font-semibold md:mb-4">Blog</p>
+        <h2 class="rb-5 mb-5 text-5xl font-bold md:mb-6 md:text-7xl lg:text-8xl">
+          Latest Agriculture Insights
+        </h2>
+        <p class="md:text-md">
+          Explore trends and tips for better farming practices.
+        </p>
+      </div>
+    </div>
+    <div
+      class="grid grid-cols-1 gap-x-8 gap-y-16 md:grid-cols-2 md:gap-y-12 lg:grid-cols-3"
+    >
+      <!-- Blog Post 1 -->
+      <div>
+        <a routerLink="/blog/maximizing-crop-yields" class="mb-6 inline-block w-full max-w-full">
+          <div class="w-full overflow-hidden">
+            <img
+              src="https://d22po4pjz3o32e.cloudfront.net/placeholder-image-landscape.svg"
+              alt="Relume placeholder image 1"
+              class="aspect-[3/2] size-full object-cover"
+            />
+          </div>
+        </a>
+        <a routerLink="/blog/maximizing-crop-yields" class="mb-2 mr-4 inline-block max-w-full text-sm font-semibold">
+          Farming
+        </a>
+        <a routerLink="/blog/maximizing-crop-yields" class="mb-2 block max-w-full">
+          <h5 class="text-xl font-bold md:text-2xl">
+            Maximizing Crop Yields Effectively
+          </h5>
+        </a>
+        <p>Learn how to boost your harvest with these proven strategies.</p>
+        <div class="mt-6 flex items-center">
+          <div class="mr-4 shrink-0">
+            <img
+              src="https://d22po4pjz3o32e.cloudfront.net/placeholder-image.svg"
+              alt="Relume placeholder avatar 3"
+              class="size-12 min-h-12 min-w-12 rounded-full object-cover"
+            />
+          </div>
+          <div>
+            <h6 class="text-sm font-semibold">John Doe</h6>
+            <div class="flex items-center">
+              <p class="text-sm">11 Jan 2022</p>
+              <span class="mx-2">•</span>
+              <p class="text-sm">5 min read</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Blog Post 2 -->
+      <div>
+        <a routerLink="/blog/sustainable-practices" class="mb-6 inline-block w-full max-w-full">
+          <div class="w-full overflow-hidden">
+            <img
+              src="https://d22po4pjz3o32e.cloudfront.net/placeholder-image-landscape.svg"
+              alt="Relume placeholder image 1"
+              class="aspect-[3/2] size-full object-cover"
+            />
+          </div>
+        </a>
+        <a routerLink="/blog/sustainable-practices" class="mb-2 mr-4 inline-block max-w-full text-sm font-semibold">
+          Sustainability
+        </a>
+        <a routerLink="/blog/sustainable-practices" class="mb-2 block max-w-full">
+          <h5 class="text-xl font-bold md:text-2xl">
+            Sustainable Practices for Modern Farmers
+          </h5>
+        </a>
+        <p>Discover eco-friendly methods to enhance your farming operations.</p>
+        <div class="mt-6 flex items-center">
+          <div class="mr-4 shrink-0">
+            <img
+              src="https://d22po4pjz3o32e.cloudfront.net/placeholder-image.svg"
+              alt="Relume placeholder avatar 3"
+              class="size-12 min-h-12 min-w-12 rounded-full object-cover"
+            />
+          </div>
+          <div>
+            <h6 class="text-sm font-semibold">Jane Smith</h6>
+            <div class="flex items-center">
+              <p class="text-sm">15 Feb 2022</p>
+              <span class="mx-2">•</span>
+              <p class="text-sm">6 min read</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Blog Post 3 -->
+      <div>
+        <a routerLink="/blog/tech-innovations" class="mb-6 inline-block w-full max-w-full">
+          <div class="w-full overflow-hidden">
+            <img
+              src="https://d22po4pjz3o32e.cloudfront.net/placeholder-image-landscape.svg"
+              alt="Relume placeholder image 1"
+              class="aspect-[3/2] size-full object-cover"
+            />
+          </div>
+        </a>
+        <a routerLink="/blog/tech-innovations" class="mb-2 mr-4 inline-block max-w-full text-sm font-semibold">
+          Innovation
+        </a>
+        <a routerLink="/blog/tech-innovations" class="mb-2 block max-w-full">
+          <h5 class="text-xl font-bold md:text-2xl">
+            Tech Innovations in Agriculture
+          </h5>
+        </a>
+        <p>
+          Explore the latest technologies transforming the agricultural
+          landscape today.
+        </p>
+        <div class="mt-6 flex items-center">
+          <div class="mr-4 shrink-0">
+            <img
+              src="https://d22po4pjz3o32e.cloudfront.net/placeholder-image.svg"
+              alt="Relume placeholder avatar 3"
+              class="size-12 min-h-12 min-w-12 rounded-full object-cover"
+            />
+          </div>
+          <div>
+            <h6 class="text-sm font-semibold">Emily Johnson</h6>
+            <div class="flex items-center">
+              <p class="text-sm">20 Mar 2022</p>
+              <span class="mx-2">•</span>
+              <p class="text-sm">7 min read</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="flex items-center justify-center">
+      <button
+        (click)="onViewAllClick()"
+        class="focus-visible:ring-border-primary inline-flex gap-3 items-center justify-center whitespace-nowrap ring-offset-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-border-primary text-text-primary bg-background-primary px-6 py-3 mt-10 md:mt-14 lg:mt-16"
+        title="View all"
+      >
+        View all
+      </button>
+    </div>
+  </div>
+</section>

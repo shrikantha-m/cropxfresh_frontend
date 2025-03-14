@@ -1,0 +1,136 @@
+<app-navbar></app-navbar>
+<div class="min-h-screen flex items-center justify-center bg-gradient-to-r from-purple-400 via-pink-500 to-red-500">
+  <!-- Form Container -->
+  <div class="relative">
+    <div class="text-center text-3xl font-bold mb-6 text-gray-800">Farmers Registration</div>
+    <!-- Animated Gradient Background -->
+    <div class="absolute -top-2 -left-2 -right-2 -bottom-2 rounded-lg bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 shadow-lg animate-pulse"></div>
+
+    <!-- Form Card -->
+    <div class="bg-white p-8 rounded-lg shadow-2xl w-96 relative z-10">
+      <!-- Step 1: Phone Number Verification -->
+      <div *ngIf="currentStep === 1">
+        <h2 class="text-center text-3xl font-bold mb-6 text-gray-800">Phone Verification</h2>
+        <form class="space-y-5">
+          <!-- Phone Number Field -->
+          <input
+            type="text"
+            class="w-full h-12 border border-gray-300 px-3 rounded-lg focus:outline-none focus:border-blue-500"
+            placeholder="Phone Number"
+          />
+
+          <!-- Send OTP Button -->
+          <button
+            type="button"
+            (click)="sendOtp()"
+            class="w-full h-12 bg-blue-500 hover:bg-blue-700 text-white font-bold rounded-lg focus:outline-none"
+          >
+            Send OTP
+          </button>
+
+          <!-- OTP Field (Visible after clicking Send OTP) -->
+          <div *ngIf="showOtpField">
+            <input
+              type="text"
+              class="w-full h-12 border border-gray-300 px-3 rounded-lg focus:outline-none focus:border-blue-500"
+              placeholder="Enter OTP"
+            />
+          </div>
+
+          <!-- Verify OTP Button (Visible after clicking Send OTP) -->
+          <div *ngIf="showOtpField">
+            <button
+              type="button"
+              (click)="verifyOtp()"
+              class="w-full h-12 bg-green-500 hover:bg-green-700 text-white font-bold rounded-lg focus:outline-none"
+            >
+              Verify OTP
+            </button>
+          </div>
+
+          <!-- Next Button (Visible after OTP verification) -->
+          <div *ngIf="isOtpVerified">
+            <button
+              type="button"
+              (click)="nextStep()"
+              class="w-full h-12 bg-blue-500 hover:bg-blue-700 text-white font-bold rounded-lg focus:outline-none"
+            >
+              Next
+            </button>
+          </div>
+
+          <!-- Already Registered? Login Button -->
+          <div class="text-center mt-4">
+            <p class="text-gray-600">Already registered?</p>
+            <button
+            (click)="navigateToLogin()"
+              type="button"
+              class="text-blue-500 hover:text-blue-700 font-semibold focus:outline-none"
+            >
+              Login
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Step 2: Complete Registration -->
+      <div *ngIf="currentStep === 2">
+        <h2 class="text-center text-3xl font-bold mb-6 text-gray-800">Complete Registration</h2>
+        <form class="space-y-5">
+          <!-- Full Name Field -->
+          <input
+            type="text"
+            class="w-full h-12 border border-gray-300 px-3 rounded-lg focus:outline-none focus:border-blue-500"
+            placeholder="Full Name"
+          />
+
+          <!-- Email Field -->
+          <input
+            type="email"
+            class="w-full h-12 border border-gray-300 px-3 rounded-lg focus:outline-none focus:border-blue-500"
+            placeholder="Email (Optional)"
+          />
+
+          <!-- Password Field -->
+          <input
+            type="password"
+            class="w-full h-12 border border-gray-300 px-3 rounded-lg focus:outline-none focus:border-blue-500"
+            placeholder="Password"
+          />
+
+          <!-- Confirm Password Field -->
+          <input
+            type="password"
+            class="w-full h-12 border border-gray-300 px-3 rounded-lg focus:outline-none focus:border-blue-500"
+            placeholder="Confirm Password"
+          />
+
+          <!-- Location of Farm Field -->
+          <input
+            type="text"
+            class="w-full h-12 border border-gray-300 px-3 rounded-lg focus:outline-none focus:border-blue-500"
+            placeholder="Location of Farm"
+          />
+
+          <!-- Complete Registration Button -->
+          <button
+            type="button"
+            class="w-full h-12 bg-blue-500 hover:bg-blue-700 text-white font-bold rounded-lg focus:outline-none"
+          >
+            Complete Registration
+          </button>
+
+          <!-- Back Button -->
+          <button
+            type="button"
+            (click)="goBack()"
+            class="w-full h-12 bg-gray-500 hover:bg-gray-700 text-white font-bold rounded-lg focus:outline-none"
+          >
+            Back
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<app-footer></app-footer>

@@ -1,0 +1,38 @@
+<!-- cta.component.html -->
+<section id="relume" class="relative px-[5%] py-16 md:py-24 lg:py-28">
+  <div class="container relative z-10 max-w-lg text-center">
+    <h2
+      class="rb-5 mb-5 text-5xl font-bold text-text-alternative md:mb-6 md:text-7xl lg:text-8xl"
+    >
+      Join the Fresh Revolution
+    </h2>
+    <p class="text-text-alternative md:text-md">
+      Discover how CropXFresh connects you directly with local farmers for fresh
+      produce.
+    </p>
+    <div class="mt-6 flex flex-wrap items-center justify-center gap-4 md:mt-8">
+      <button
+        (click)="onSignUpClick()"
+        class="focus-visible:ring-border-primary inline-flex gap-3 items-center justify-center whitespace-nowrap ring-offset-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-border-primary bg-background-alternative text-text-alternative px-6 py-3"
+        title="Sign Up"
+      >
+        Sign Up
+      </button>
+      <button
+        (click)="onLearnMoreClick()"
+        class="focus-visible:ring-border-primary inline-flex gap-3 items-center justify-center whitespace-nowrap ring-offset-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-border-alternative text-text-alternative px-6 py-3"
+        title="Learn More"
+      >
+        Learn More
+      </button>
+    </div>
+  </div>
+  <div class="absolute inset-0 z-0">
+    <img
+      src="https://d22po4pjz3o32e.cloudfront.net/placeholder-image.svg"
+      class="size-full object-cover"
+      alt="Relume placeholder image"
+    />
+    <div class="absolute inset-0 bg-black/50"></div>
+  </div>
+</section>

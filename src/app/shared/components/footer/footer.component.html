@@ -1,0 +1,193 @@
+<!-- footer.component.html -->
+<footer id="relume" class="px-[5%] py-12 md:py-18 lg:py-20">
+  <div class="container">
+    <!-- Subscribe Section -->
+    <div class="lg:flex lg:items-start lg:justify-between">
+      <div class="rb-6 mb-6 lg:mb-0">
+        <h1 class="font-semibold md:text-md">Subscribe to updates</h1>
+        <p>Stay informed about fresh produce and special offers.</p>
+      </div>
+      <div class="max-w-md lg:min-w-[25rem]">
+        <form
+          class="mb-3 grid grid-cols-1 gap-x-4 gap-y-3 sm:grid-cols-[1fr_max-content] sm:gap-y-4 md:gap-4"
+        >
+          <div class="relative flex w-full items-center">
+            <input
+              type="email"
+              class="flex size-full min-h-11 border border-border-primary bg-background-primary py-2 align-middle file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-neutral focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50 px-3"
+              id="email"
+              placeholder="Your email here"
+              value=""
+            />
+          </div>
+          <button
+            (click)="onSubscribeClick()"
+            class="focus-visible:ring-border-primary inline-flex gap-3 items-center justify-center whitespace-nowrap ring-offset-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-border-primary text-text-primary bg-background-primary px-5 py-2"
+            title="Subscribe"
+          >
+            Subscribe
+          </button>
+        </form>
+        <p class="text-xs">By subscribing you agree to our Privacy Policy.</p>
+      </div>
+    </div>
+
+    <!-- Divider -->
+    <div class="py-12 md:py-18 lg:py-20">
+      <div class="h-px w-full bg-black"></div>
+    </div>
+
+    <!-- Footer Links -->
+    <div
+      class="rb-12 mb-12 grid grid-cols-1 items-start gap-x-8 gap-y-10 sm:grid-cols-3 md:mb-18 md:gap-y-12 lg:mb-20 lg:grid-cols-6"
+    >
+      <!-- Quick Links -->
+      <div class="flex flex-col items-start justify-start">
+        <h2 class="mb-2 font-semibold">Quick Links</h2>
+        <ul>
+          <li class="py-2 text-sm">
+            <a routerLink="/about" class="flex items-center gap-3">About Us</a>
+          </li>
+          <li class="py-2 text-sm">
+            <a routerLink="/contact" class="flex items-center gap-3">Contact Us</a>
+          </li>
+          <li class="py-2 text-sm">
+            <a routerLink="/faqs" class="flex items-center gap-3">FAQs</a>
+          </li>
+          <li class="py-2 text-sm">
+            <a routerLink="/privacy-policy" class="flex items-center gap-3">Privacy Policy</a>
+          </li>
+          <li class="py-2 text-sm">
+            <a routerLink="/terms-of-service" class="flex items-center gap-3">Terms of Service</a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Resources -->
+      <div class="flex flex-col items-start justify-start">
+        <h2 class="mb-2 font-semibold">Resources</h2>
+        <ul>
+          <li class="py-2 text-sm">
+            <a routerLink="/blog" class="flex items-center gap-3">Blog</a>
+          </li>
+          <li class="py-2 text-sm">
+            <a routerLink="/news" class="flex items-center gap-3">News</a>
+          </li>
+          <li class="py-2 text-sm">
+            <a routerLink="/events" class="flex items-center gap-3">Events</a>
+          </li>
+          <li class="py-2 text-sm">
+            <a routerLink="/testimonials" class="flex items-center gap-3">Testimonials</a>
+          </li>
+          <li class="py-2 text-sm">
+            <a routerLink="/partnerships" class="flex items-center gap-3">Partnerships</a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Support -->
+      <div class="flex flex-col items-start justify-start">
+        <h2 class="mb-2 font-semibold">Support</h2>
+        <ul>
+          <li class="py-2 text-sm">
+            <a routerLink="/help-center" class="flex items-center gap-3">Help Center</a>
+          </li>
+          <li class="py-2 text-sm">
+            <a routerLink="/feedback" class="flex items-center gap-3">Feedback</a>
+          </li>
+          <li class="py-2 text-sm">
+            <a routerLink="/careers" class="flex items-center gap-3">Careers</a>
+          </li>
+          <li class="py-2 text-sm">
+            <a routerLink="/sustainability" class="flex items-center gap-3">Sustainability</a>
+          </li>
+          <li class="py-2 text-sm">
+            <a routerLink="/community" class="flex items-center gap-3">Community</a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Connect -->
+      <div class="flex flex-col items-start justify-start">
+        <h2 class="mb-2 font-semibold">Connect</h2>
+        <ul>
+          <li class="py-2 text-sm">
+            <a href="https://facebook.com" target="_blank" class="flex items-center gap-3">Facebook</a>
+          </li>
+          <li class="py-2 text-sm">
+            <a href="https://twitter.com" target="_blank" class="flex items-center gap-3">Twitter</a>
+          </li>
+          <li class="py-2 text-sm">
+            <a href="https://instagram.com" target="_blank" class="flex items-center gap-3">Instagram</a>
+          </li>
+          <li class="py-2 text-sm">
+            <a href="https://linkedin.com" target="_blank" class="flex items-center gap-3">LinkedIn</a>
+          </li>
+          <li class="py-2 text-sm">
+            <a href="https://youtube.com" target="_blank" class="flex items-center gap-3">YouTube</a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Legal -->
+      <div class="flex flex-col items-start justify-start">
+        <h2 class="mb-2 font-semibold">Legal</h2>
+        <ul>
+          <li class="py-2 text-sm">
+            <a routerLink="/cookie-policy" class="flex items-center gap-3">Cookie Policy</a>
+          </li>
+          <li class="py-2 text-sm">
+            <a routerLink="/accessibility-statement" class="flex items-center gap-3">Accessibility Statement</a>
+          </li>
+          <li class="py-2 text-sm">
+            <a routerLink="/user-agreement" class="flex items-center gap-3">User Agreement</a>
+          </li>
+          <li class="py-2 text-sm">
+            <a routerLink="/copyright-notice" class="flex items-center gap-3">Copyright Notice</a>
+          </li>
+          <li class="py-2 text-sm">
+            <a routerLink="/intellectual-property" class="flex items-center gap-3">Intellectual Property</a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Contact Us -->
+      <div class="flex flex-col items-start justify-start">
+        <h2 class="mb-2 font-semibold">Contact Us</h2>
+        <ul>
+          <li class="py-2 text-sm">
+            <a routerLink="/email-support" class="flex items-center gap-3">Email Support</a>
+          </li>
+          <li class="py-2 text-sm">
+            <a routerLink="/phone-support" class="flex items-center gap-3">Phone Support</a>
+          </li>
+          <li class="py-2 text-sm">
+            <a routerLink="/live-chat" class="flex items-center gap-3">Live Chat</a>
+          </li>
+          <li class="py-2 text-sm">
+            <a routerLink="/office-location" class="flex items-center gap-3">Office Location</a>
+          </li>
+          <li class="py-2 text-sm">
+            <a routerLink="/help-desk" class="flex items-center gap-3">Help Desk</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Divider -->
+    <div class="h-px w-full bg-black"></div>
+
+    <!-- Copyright Section -->
+    <div
+      class="flex flex-col items-start pb-4 pt-6 text-sm sm:flex-row sm:items-center sm:justify-between md:pb-0 md:pt-8"
+    >
+      <a routerLink="/" class="mb-6 sm:mb-0">
+        <img
+          src="https://d22po4pjz3o32e.cloudfront.net/logo-image.svg"
+          alt="Logo image"
+        />
+      </a>
+      <p class="text-sm">© 2024 CropXFresh. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
