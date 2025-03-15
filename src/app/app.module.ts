@@ -20,6 +20,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from './core/auth.service';
 import { RegisterComponent } from './pages/register/register.component';
 import { FarmerRegistrationComponent } from './features/farmers/pages/farmer-registration/farmer-registration.component';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from './core/interceptors/auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -45,7 +47,13 @@ import { FarmerRegistrationComponent } from './features/farmers/pages/farmer-reg
     HttpClientModule,
     ReactiveFormsModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

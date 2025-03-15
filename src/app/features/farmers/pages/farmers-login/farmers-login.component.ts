@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { FarmerService } from '../../services/farmer.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AuthService } from '../../../../core/services/auth.service';
 import { Router } from '@angular/router';
-
 
 @Component({
   selector: 'app-farmers-login',
@@ -9,21 +9,42 @@ import { Router } from '@angular/router';
   styleUrls: ['./farmers-login.component.css']
 })
 export class FarmersLoginComponent {
-  phone: string = '';
-  password: string = '';
+  loginForm: FormGroup;
+  isLoading = false;
+  errorMessage = '';
 
-  constructor(private farmerService: FarmerService, private router: Router) {}
+  constructor(
+    private fb: FormBuilder,
+    private authService: AuthService,
+    private router: Router
+  ) {
+    this.loginForm = this.fb.group({
+      phone: ['', [Validators.required, Validators.pattern('^[0-9]{10}$')]],
+      password: ['', [Validators.required]]
+    });
+  }
 
-  onSubmit(): void {
-    this.farmerService.login(this.phone, this.password).subscribe(
-      (response) => {
-        console.log('Login successful', response);
-        // Redirect to the dashboard or home page
-        this.router.navigate(['/farmers/dashboard']);
-      },
-      (error) => {
-        console.error('Login failed', error);
-      }
-    );
+  onSubmit() {
+    if (this.loginForm.valid) {
+      this.isLoading = true;
+      this.errorMessage = '';
+      
+      console.log('Sending login request:', this.loginForm.value);
+
+      this.authService.login(this.loginForm.value).subscribe({
+        next: (response) => {
+          console.log('Login successful:', response);
+          this.router.navigate(['/farmers/dashboard']);
+        },
+        error: (error) => {
+          console.error('Login failed:', error);
+          this.errorMessage = error.error?.error || 'Login failed. Please try again.';
+          this.isLoading = false;
+        },
+        complete: () => {
+          this.isLoading = false;
+        }
+      });
+    }
   }
 }

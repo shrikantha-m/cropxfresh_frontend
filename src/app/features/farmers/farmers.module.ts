@@ -1,24 +1,23 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-
-
-import { FarmersRoutingModule } from './farmers-routing.module';
-import { FarmersComponent } from './farmers.component';
+import { RouterModule, Routes } from '@angular/router';
 import { FarmersLoginComponent } from './pages/farmers-login/farmers-login.component';
 
+const routes: Routes = [
+  { path: 'login', component: FarmersLoginComponent }
+];
 
 @NgModule({
   declarations: [
-    FarmersComponent,
-    FarmersLoginComponent,
+    FarmersLoginComponent
   ],
   imports: [
     CommonModule,
-    FarmersRoutingModule,
-    FormsModule,
+    ReactiveFormsModule,
     HttpClientModule,
+    RouterModule.forChild(routes)
   ]
 })
 export class FarmersModule { }
