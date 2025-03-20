@@ -106,8 +106,8 @@ export class FarmersDashboardComponent implements OnInit {
     return (
       typeof product.name === 'string' && product.name.trim().length > 0 &&
       typeof product.description === 'string' && product.description.trim().length > 0 &&
-      typeof product.price === 'number' && product.price > 0 &&
-      typeof product.quantity === 'number' && product.quantity >= 0 &&
+      typeof product.basePrice === 'number' && product.basePrice > 0 &&
+      typeof product.baseQuantity === 'number' && product.baseQuantity >= 0 &&
       typeof product.category === 'string' && product.category.trim().length > 0
     );
   }

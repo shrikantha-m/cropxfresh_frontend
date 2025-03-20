@@ -70,8 +70,8 @@
           <tbody class="bg-white divide-y divide-gray-200">
             <tr *ngFor="let product of products">
               <td class="px-6 py-4 whitespace-nowrap">{{product.name}}</td>
-              <td class="px-6 py-4 whitespace-nowrap">{{product.quantity}}</td>
-              <td class="px-6 py-4 whitespace-nowrap">${{product.price.toFixed(2)}}</td>
+              <td class="px-6 py-4 whitespace-nowrap">{{product.baseQuantity}}</td>
+              <td class="px-6 py-4 whitespace-nowrap">${{product.basePrice.toFixed(2)}}</td>
               <td class="px-6 py-4 whitespace-nowrap">
                 <span [class]="product.status === 'available' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'" class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full">
                   {{product.status}}
