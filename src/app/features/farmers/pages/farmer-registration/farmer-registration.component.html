@@ -1,135 +1,209 @@
 <app-navbar></app-navbar>
 <div class="min-h-screen flex items-center justify-center bg-gradient-to-r from-purple-400 via-pink-500 to-red-500">
-  <!-- Form Container -->
   <div class="relative">
     <div class="text-center text-3xl font-bold mb-6 text-gray-800">Farmers Registration</div>
-    <!-- Animated Gradient Background -->
-    <div class="absolute -top-2 -left-2 -right-2 -bottom-2 rounded-lg bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 shadow-lg animate-pulse"></div>
+    
+    <!-- Progress Bar -->
+    <div class="mb-6 relative">
+      <div class="w-full bg-gray-200 rounded-full h-2.5">
+        <div class="bg-blue-600 h-2.5 rounded-full transition-all duration-300" [style.width.%]="getProgressPercentage()"></div>
+      </div>
+      <div class="flex justify-between mt-2">
+        <div *ngFor="let step of steps | slice:0:3; let i = index" 
+             class="flex flex-col items-center">
+          <div [class]="'w-6 h-6 rounded-full flex items-center justify-center text-sm ' + 
+                        (step.completed ? 'bg-blue-600 text-white' : 
+                         currentStep === i + 1 ? 'border-2 border-blue-600 text-blue-600' : 
+                         'bg-gray-200 text-gray-600')">
+            {{i + 1}}
+          </div>
+          <span class="text-xs mt-1 text-gray-600">{{step.title}}</span>
+        </div>
+      </div>
+    </div>
 
     <!-- Form Card -->
-    <div class="bg-white p-8 rounded-lg shadow-2xl w-96 relative z-10">
-      <!-- Step 1: Phone Number Verification -->
-      <div *ngIf="currentStep === 1">
-        <h2 class="text-center text-3xl font-bold mb-6 text-gray-800">Phone Verification</h2>
-        <form class="space-y-5">
-          <!-- Phone Number Field -->
-          <input
-            type="text"
-            class="w-full h-12 border border-gray-300 px-3 rounded-lg focus:outline-none focus:border-blue-500"
-            placeholder="Phone Number"
-          />
-
-          <!-- Send OTP Button -->
-          <button
-            type="button"
-            (click)="sendOtp()"
-            class="w-full h-12 bg-blue-500 hover:bg-blue-700 text-white font-bold rounded-lg focus:outline-none"
-          >
-            Send OTP
-          </button>
-
-          <!-- OTP Field (Visible after clicking Send OTP) -->
-          <div *ngIf="showOtpField">
+    <div class="bg-white p-8 rounded-lg shadow-2xl w-[32rem] relative z-10">
+      <!-- Error Message -->
+      <div *ngIf="errorMessage" class="mb-4 p-4 bg-red-100 border border-red-400 text-red-700 rounded">
+        {{ errorMessage }}
+      </div>
+      <!-- Step 1: Phone Verification -->
+      <div *ngIf="currentStep === 1" class="space-y-6">
+        <h2 class="text-center text-2xl font-bold mb-6 text-gray-800">Phone Verification</h2>
+        <form [formGroup]="phoneForm" class="space-y-5" *ngIf="!isOtpSent">
+          <div class="space-y-2">
             <input
               type="text"
+              formControlName="phoneNumber"
               class="w-full h-12 border border-gray-300 px-3 rounded-lg focus:outline-none focus:border-blue-500"
-              placeholder="Enter OTP"
+              placeholder="Enter 10-digit Phone Number"
             />
           </div>
+          <div class="flex space-x-4">
+            <button
+              type="button"
+              (click)="sendOtp()"
+              [disabled]="isLoading"
+              class="w-full h-12 bg-blue-500 hover:bg-blue-700 text-white font-bold rounded-lg focus:outline-none disabled:bg-blue-300"
+            >
+              {{ isLoading ? 'Sending...' : 'Send OTP' }}
+            </button>
+          </div>
+        </form>
 
-          <!-- Verify OTP Button (Visible after clicking Send OTP) -->
-          <div *ngIf="showOtpField">
+        <form [formGroup]="otpForm" class="space-y-5" *ngIf="isOtpSent">
+          <div class="space-y-2">
+            <input
+              type="text"
+              formControlName="otp"
+              class="w-full h-12 border border-gray-300 px-3 rounded-lg focus:outline-none focus:border-blue-500"
+              placeholder="Enter 6-digit OTP"
+            />
+          </div>
+          <div class="flex space-x-4">
             <button
               type="button"
               (click)="verifyOtp()"
-              class="w-full h-12 bg-green-500 hover:bg-green-700 text-white font-bold rounded-lg focus:outline-none"
+              [disabled]="isLoading"
+              class="w-full h-12 bg-blue-500 hover:bg-blue-700 text-white font-bold rounded-lg focus:outline-none disabled:bg-blue-300"
             >
-              Verify OTP
+              {{ isLoading ? 'Verifying...' : 'Verify OTP' }}
             </button>
           </div>
+          <div class="text-center">
+            <button
+              type="button"
+              (click)="isOtpSent = false"
+              class="text-blue-500 hover:text-blue-700 text-sm"
+            >
+              Change Phone Number
+            </button>
+          </div>
+        </form>
+      </div>
 
-          <!-- Next Button (Visible after OTP verification) -->
-          <div *ngIf="isOtpVerified">
+      <!-- Step 2: Personal Information -->
+      <div *ngIf="currentStep === 2" class="space-y-6">
+        <h2 class="text-center text-2xl font-bold mb-6 text-gray-800">Personal Information</h2>
+        <form [formGroup]="personalInfoForm" class="space-y-5">
+          <div class="space-y-2">
+            <input
+              type="text"
+              formControlName="fullName"
+              class="w-full h-12 border border-gray-300 px-3 rounded-lg focus:outline-none focus:border-blue-500"
+              placeholder="Full Name"
+            />
+          </div>
+          <div class="space-y-2">
+            <input
+              type="email"
+              formControlName="email"
+              class="w-full h-12 border border-gray-300 px-3 rounded-lg focus:outline-none focus:border-blue-500"
+              placeholder="Email"
+            />
+          </div>
+          <div class="space-y-2">
+            <input
+              type="password"
+              formControlName="password"
+              class="w-full h-12 border border-gray-300 px-3 rounded-lg focus:outline-none focus:border-blue-500"
+              placeholder="Password"
+            />
+          </div>
+          <div class="space-y-2">
+            <input
+              type="password"
+              formControlName="confirmPassword"
+              class="w-full h-12 border border-gray-300 px-3 rounded-lg focus:outline-none focus:border-blue-500"
+              placeholder="Confirm Password"
+            />
+          </div>
+          <div class="flex space-x-4">
+            <button
+              type="button"
+              (click)="previousStep()"
+              class="w-1/2 h-12 bg-gray-500 hover:bg-gray-700 text-white font-bold rounded-lg focus:outline-none"
+            >
+              Back
+            </button>
             <button
               type="button"
               (click)="nextStep()"
-              class="w-full h-12 bg-blue-500 hover:bg-blue-700 text-white font-bold rounded-lg focus:outline-none"
+              class="w-1/2 h-12 bg-blue-500 hover:bg-blue-700 text-white font-bold rounded-lg focus:outline-none"
             >
               Next
             </button>
           </div>
+        </form>
+      </div>
 
-          <!-- Already Registered? Login Button -->
-          <div class="text-center mt-4">
-            <p class="text-gray-600">Already registered?</p>
+      <!-- Step 3: Farm Details -->
+      <div *ngIf="currentStep === 3" class="space-y-6">
+        <h2 class="text-center text-2xl font-bold mb-6 text-gray-800">Farm Details</h2>
+        <form [formGroup]="farmDetailsForm" class="space-y-5">
+          <!-- Loading Overlay -->
+          <div *ngIf="isLoading" class="absolute inset-0 bg-white bg-opacity-50 flex items-center justify-center z-50">
+            <div class="flex items-center space-x-2">
+              <svg class="animate-spin h-8 w-8 text-blue-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+              </svg>
+              <span class="text-blue-500 font-semibold">Registering...</span>
+            </div>
+          </div>
+          <div class="space-y-2">
+            <input
+              type="text"
+              formControlName="farmName"
+              class="w-full h-12 border border-gray-300 px-3 rounded-lg focus:outline-none focus:border-blue-500"
+              placeholder="Farm Name"
+            />
+          </div>
+          <div class="space-y-2">
+            <input
+              type="text"
+              formControlName="farmLocation"
+              class="w-full h-12 border border-gray-300 px-3 rounded-lg focus:outline-none focus:border-blue-500"
+              placeholder="Farm Location"
+            />
+          </div>
+          <div class="space-y-2">
+            <input
+              type="number"
+              formControlName="farmSize"
+              class="w-full h-12 border border-gray-300 px-3 rounded-lg focus:outline-none focus:border-blue-500"
+              placeholder="Farm Size (in acres)"
+            />
+          </div>
+          <div class="space-y-2">
+            <input
+              type="text"
+              formControlName="primaryCrops"
+              class="w-full h-12 border border-gray-300 px-3 rounded-lg focus:outline-none focus:border-blue-500"
+              placeholder="Primary Crops (comma separated)"
+            />
+          </div>
+          <div class="flex space-x-4">
             <button
-            (click)="navigateToLogin()"
               type="button"
-              class="text-blue-500 hover:text-blue-700 font-semibold focus:outline-none"
+              (click)="previousStep()"
+              class="w-1/2 h-12 bg-gray-500 hover:bg-gray-700 text-white font-bold rounded-lg focus:outline-none"
             >
-              Login
+              Back
+            </button>
+            <button
+              type="button"
+              (click)="submitRegistration()"
+              class="w-1/2 h-12 bg-green-500 hover:bg-green-700 text-white font-bold rounded-lg focus:outline-none"
+            >
+              Submit Registration
             </button>
           </div>
         </form>
       </div>
 
-      <!-- Step 2: Complete Registration -->
-      <div *ngIf="currentStep === 2">
-        <h2 class="text-center text-3xl font-bold mb-6 text-gray-800">Complete Registration</h2>
-        <form class="space-y-5">
-          <!-- Full Name Field -->
-          <input
-            type="text"
-            class="w-full h-12 border border-gray-300 px-3 rounded-lg focus:outline-none focus:border-blue-500"
-            placeholder="Full Name"
-          />
-
-          <!-- Email Field -->
-          <input
-            type="email"
-            class="w-full h-12 border border-gray-300 px-3 rounded-lg focus:outline-none focus:border-blue-500"
-            placeholder="Email (Optional)"
-          />
-
-          <!-- Password Field -->
-          <input
-            type="password"
-            class="w-full h-12 border border-gray-300 px-3 rounded-lg focus:outline-none focus:border-blue-500"
-            placeholder="Password"
-          />
-
-          <!-- Confirm Password Field -->
-          <input
-            type="password"
-            class="w-full h-12 border border-gray-300 px-3 rounded-lg focus:outline-none focus:border-blue-500"
-            placeholder="Confirm Password"
-          />
-
-          <!-- Location of Farm Field -->
-          <input
-            type="text"
-            class="w-full h-12 border border-gray-300 px-3 rounded-lg focus:outline-none focus:border-blue-500"
-            placeholder="Location of Farm"
-          />
-
-          <!-- Complete Registration Button -->
-          <button
-            type="button"
-            class="w-full h-12 bg-blue-500 hover:bg-blue-700 text-white font-bold rounded-lg focus:outline-none"
-          >
-            Complete Registration
-          </button>
-
-          <!-- Back Button -->
-          <button
-            type="button"
-            (click)="goBack()"
-            class="w-full h-12 bg-gray-500 hover:bg-gray-700 text-white font-bold rounded-lg focus:outline-none"
-          >
-            Back
-          </button>
-        </form>
-      </div>
+      
     </div>
   </div>
 </div>

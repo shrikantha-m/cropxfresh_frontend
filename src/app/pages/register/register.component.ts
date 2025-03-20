@@ -10,7 +10,7 @@ export class RegisterComponent {
   constructor(private router: Router) {}
 
   navigateToFarmerRegister() {
-    this.router.navigate(['/register/farmer']);
+    this.router.navigate(['/farmers/register']);
   }
 
   navigateToBusinessRegister() {

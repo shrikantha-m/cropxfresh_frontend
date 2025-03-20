@@ -1,3 +1,4 @@
+
 <div class="login-container">
   <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
     <div class="form-group">
@@ -28,11 +29,22 @@
     <div class="alert alert-danger" *ngIf="errorMessage">
       {{ errorMessage }}
     </div>
-
     <button 
       type="submit" 
       [disabled]="loginForm.invalid || isLoading">
       {{ isLoading ? 'Logging in...' : 'Login' }}
     </button>
+    <div class="mt-4 text-center">
+      <button 
+          type="button" 
+          routerLink="/login" 
+          class="btn-sm flex items-center justify-center space-x-1 text-gray-600 hover:text-primary-600 transition-colors mx-auto">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clip-rule="evenodd" />
+          </svg>
+          <span class="text-sm">Back</span>
+      </button>
+    </div>
   </form>
 </div>
+

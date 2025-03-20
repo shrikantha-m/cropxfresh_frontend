@@ -23,7 +23,13 @@ interface RefreshResponse {
 })
 export class AuthService {
   private apiUrl = 'http://localhost:8000/api/farmers';
-  private isLoggedInSubject = new BehaviorSubject<boolean>(false);
+  private isLoggedInSubject = new BehaviorSubject<boolean>(this.checkInitialAuthState());
+  isLoggedIn$ = this.isLoggedInSubject.asObservable();
+
+  private checkInitialAuthState(): boolean {
+    const token = localStorage.getItem('access_token');
+    return !!token;
+  }
 
   constructor(
     private http: HttpClient,
@@ -98,6 +104,7 @@ export class AuthService {
     localStorage.removeItem('refresh_token');
     localStorage.removeItem('user');
     this.isLoggedInSubject.next(false);
+    this.router.navigate(['/login']);
     this.router.navigate(['/farmers/login']);
   }
 }

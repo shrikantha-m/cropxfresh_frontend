@@ -2,3 +2,24 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Custom styles for Material + Tailwind integration */
+@layer components {
+  .mat-mdc-card {
+    @apply rounded-lg shadow-md;
+  }
+  
+  .mat-mdc-form-field {
+    @apply w-full;
+  }
+}
+
+/* Angular Material overrides */
+html, body { 
+  height: 100%;
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

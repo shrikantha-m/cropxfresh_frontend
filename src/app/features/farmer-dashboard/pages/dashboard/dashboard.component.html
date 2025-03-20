@@ -1,0 +1,51 @@
+<div class="dashboard-container">
+  <mat-toolbar class="fixed top-0 left-0 right-0 z-50 px-6 bg-white shadow-md">
+    <div class="flex items-center justify-between w-full max-w-7xl mx-auto">
+      <!-- Logo -->
+      <div class="flex items-center">
+        <a routerLink="/" class="flex items-center">
+          <app-logo class="w-32"></app-logo>
+        </a>
+      </div>
+
+      <!-- Navigation Links -->
+      <nav class="flex items-center space-x-4">
+        <a routerLink="/" class="text-gray-700 hover:text-[#31C48D] transition-colors">Home</a>
+        <a routerLink="/about" class="text-gray-700 hover:text-[#31C48D] transition-colors">About</a>
+        <a routerLink="/farmershub" class="text-gray-700 hover:text-[#31C48D] transition-colors">Farmers Hub</a>
+        <a routerLink="/contactus" class="text-gray-700 hover:text-[#31C48D] transition-colors">Contact Us</a>
+      </nav>
+
+      <!-- Notification and Logout -->
+      <div class="flex items-center space-x-4">
+        <button mat-icon-button [matMenuTriggerFor]="notificationMenu" class="relative">
+          <mat-icon>notifications</mat-icon>
+          <span class="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center" *ngIf="notificationCount > 0">{{notificationCount}}</span>
+        </button>
+        <mat-menu #notificationMenu="matMenu" class="notification-menu">
+          <div class="p-4 min-w-[250px]">
+            <div *ngIf="notifications.length === 0" class="text-center py-2">
+              <mat-icon class="text-gray-400">notifications_off</mat-icon>
+              <p class="text-gray-500 mt-2">No new notifications</p>
+            </div>
+            <div *ngFor="let notification of notifications" class="py-2 px-3 hover:bg-gray-50 rounded-lg cursor-pointer">
+              <div class="flex items-center">
+                <mat-icon class="text-[#31C48D] mr-3">{{notification.icon}}</mat-icon>
+                <span class="text-gray-700">{{notification.message}}</span>
+              </div>
+            </div>
+          </div>
+        </mat-menu>
+        <button mat-button (click)="logout()" class="text-gray-700 hover:text-red-600 transition-colors">
+          <mat-icon class="mr-1">exit_to_app</mat-icon>
+          Logout
+        </button>
+      </div>
+    </div>
+  </mat-toolbar>
+
+  <!-- Main Content -->
+  <div class="content mt-16 p-6">
+    <router-outlet></router-outlet>
+  </div>
+</div>

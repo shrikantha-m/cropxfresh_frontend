@@ -13,6 +13,10 @@ export class FarmersLoginComponent {
   isLoading = false;
   errorMessage = '';
 
+  goBack() {
+    window.history.back();
+  }
+
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
