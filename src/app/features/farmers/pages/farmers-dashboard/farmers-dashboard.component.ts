@@ -4,7 +4,7 @@ import { ProductDialogComponent } from './product-dialog/product-dialog.componen
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { Product } from '../../../../core/models/product.model';
-import { ProductService } from '../../../farmer-dashboard/services/product.service';
+import { ProductService } from '../../services/product.service';
 
 interface Order {
   id: number;
@@ -57,27 +57,101 @@ export class FarmersDashboardComponent implements OnInit {
     private productService: ProductService
   ) {}
 
-
-
-  ngOnInit() {
+  ngOnInit(): void {
     this.loadProducts();
   }
 
-  private loadProducts() {
+  private loadProducts(): void {
     this.isLoading = true;
     this.error = null;
     this.productService.getProducts().subscribe({
-      next: (products) => {
+      next: (products: Product[]) => {
         this.products = products;
         this.calculateStatistics();
         this.isLoading = false;
       },
-      error: (error) => {
+      error: (error: Error) => {
         this.error = 'Failed to load products. Please try again.';
         this.showError(this.error);
         this.isLoading = false;
       }
     });
+  }
+
+  addProduct(): void {
+    if (this.isLoading) return;
+    try {
+      const dialogRef = this.dialog.open(ProductDialogComponent, {
+        width: '500px'
+      });
+
+      dialogRef.afterClosed().subscribe(result => {
+        if (result) {
+          if (!this.validateProductData(result)) {
+            this.showError('Invalid product data');
+            return;
+          }
+          const newProduct: Product = {
+            id: 0,
+            ...result
+          };
+          this.productService.createProduct(newProduct).subscribe({
+            next: (product: Product) => {
+              this.products = [...this.products, product];
+              this.calculateStatistics();
+              this.showSuccess('Product added successfully');
+            },
+            error: (error: Error) => {
+              this.showError('Failed to add product. Please try again.');
+              console.error('Error in addProduct:', error);
+            }
+          });
+        }
+      });
+    } catch (error: unknown) {
+      this.showError('Error adding product');
+      console.error('Error in addProduct:', error);
+    }
+  }
+
+  editProduct(product: Product): void {
+    if (this.isLoading) return;
+    try {
+      if (!product || !product.id) {
+        this.showError('Invalid product selected');
+        return;
+      }
+
+      const dialogRef = this.dialog.open(ProductDialogComponent, {
+        width: '500px',
+        data: product
+      });
+
+      dialogRef.afterClosed().subscribe(result => {
+        if (result) {
+          if (!this.validateProductData(result)) {
+            this.showError('Invalid product data');
+            return;
+          }
+          this.productService.updateProduct(product.id, result).subscribe({
+            next: (updatedProduct: Product) => {
+              this.products = this.products.map(p =>
+                p.id === product.id ? updatedProduct : p
+              );
+              this.calculateStatistics();
+              this.showSuccess('Product updated successfully');
+            },
+            error: (error: Error) => {
+              this.showError('Failed to update product. Please try again.');
+              console.error('Error in editProduct:', error);
+            }
+          });
+        }
+      });
+    } catch (error: unknown) {
+      this.showError('Error updating product');
+      console.error('Error in editProduct:', error);
+    }
   }
 
   private calculateStatistics() {
@@ -112,82 +186,6 @@ export class FarmersDashboardComponent implements OnInit {
     );
   }
 
-  addProduct() {
-    if (this.isLoading) return;
-    try {
-      const dialogRef = this.dialog.open(ProductDialogComponent, {
-        width: '500px'
-      });
-
-      dialogRef.afterClosed().subscribe(result => {
-        if (result) {
-          if (!this.validateProductData(result)) {
-            this.showError('Invalid product data');
-            return;
-          }
-          const newProduct: Product = {
-            id: 0, // ID will be properly assigned by backend
-            ...result
-          };
-          this.productService.createProduct(newProduct).subscribe({
-            next: (product) => {
-              this.products = [...this.products, product];
-              this.calculateStatistics();
-              this.showSuccess('Product added successfully');
-            },
-            error: (error) => {
-              this.showError('Failed to add product. Please try again.');
-              console.error('Error in addProduct:', error);
-            }
-          });
-        }
-      });
-    } catch (error) {
-      this.showError('Error adding product');
-      console.error('Error in addProduct:', error);
-    }
-  }
-
-  editProduct(product: Product) {
-    if (this.isLoading) return;
-    try {
-      if (!product || !product.id) {
-        this.showError('Invalid product selected');
-        return;
-      }
-
-      const dialogRef = this.dialog.open(ProductDialogComponent, {
-        width: '500px',
-        data: product
-      });
-
-      dialogRef.afterClosed().subscribe(result => {
-        if (result) {
-          if (!this.validateProductData(result)) {
-            this.showError('Invalid product data');
-            return;
-          }
-          this.productService.updateProduct(product.id, result).subscribe({
-            next: (updatedProduct) => {
-              this.products = this.products.map(p =>
-                p.id === product.id ? updatedProduct : p
-              );
-              this.calculateStatistics();
-              this.showSuccess('Product updated successfully');
-            },
-            error: (error) => {
-              this.showError('Failed to update product. Please try again.');
-              console.error('Error in editProduct:', error);
-            }
-          });
-        }
-      });
-    } catch (error) {
-      this.showError('Error updating product');
-      console.error('Error in editProduct:', error);
-    }
-  }
-
   deleteProduct(productId: number): void {
     if (this.isLoading) return;
     try {
@@ -205,7 +203,7 @@ export class FarmersDashboardComponent implements OnInit {
             this.showSuccess('Product deleted successfully');
             this.isLoading = false;
           },
-          error: (error) => {
+          error: (error: Error) => {
             this.showError('Failed to delete product. Please try again.');
             console.error('Error in deleteProduct:', error);
             this.isLoading = false;

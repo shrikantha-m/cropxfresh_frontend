@@ -3,6 +3,25 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Import Material Design theme */
+@import '@angular/material/prebuilt-themes/indigo-pink.css';
+
+/* Add Angular Material typography and theme styles */
+@import '~@angular/material/prebuilt-themes/indigo-pink.css';
+
+/* Material Design overrides */
+.mat-mdc-form-field {
+  @apply w-full;
+}
+
+.mat-mdc-form-field-label {
+  color: rgba(0, 0, 0, 0.6) !important;
+}
+
+.mat-mdc-form-field-infix {
+  color: rgba(0, 0, 0, 0.87);
+}
+
 /* Custom styles for Material + Tailwind integration */
 @layer components {
   .mat-mdc-card {
@@ -12,6 +31,23 @@
   .mat-mdc-form-field {
     @apply w-full;
   }
+}
+
+/* Material Design typography overrides */
+.mat-typography {
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.mat-mdc-form-field {
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.mat-mdc-select {
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.mat-mdc-option {
+  font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
 /* Angular Material overrides */

@@ -16,12 +16,15 @@ export class AuthInterceptor implements HttpInterceptor {
   ) {}
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    request = request.clone({
-      setHeaders: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-      }
-    });
+    // Skip setting Content-Type for multipart/form-data requests
+    if (!request.headers.has('Content-Type') && !(request.body instanceof FormData)) {
+      request = request.clone({
+        setHeaders: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        }
+      });
+    }
 
     const token = localStorage.getItem('access_token');
     if (token) {
